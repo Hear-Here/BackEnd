@@ -1,10 +1,12 @@
 package ssuSoftware.hearHear.entity;
 
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
+@Getter
 @Entity
 public class Post {
 

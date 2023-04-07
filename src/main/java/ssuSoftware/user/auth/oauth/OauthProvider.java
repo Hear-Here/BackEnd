@@ -1,4 +1,4 @@
-package play.go.entity.enumed;
+package ssuSoftware.user.auth.oauth;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
