@@ -1,15 +1,22 @@
 spring:
-datasource:
-driver-class-name: com.mysql.cj.jdbc.Driver
-url: jdbc:hearhere-db.cekgu3hq9fkt.ap-northeast-2.rds.amazonaws.com/?????? ???hearhere-db
-username: admin
-password: tnsdnjs5913!
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:hearhere-db.cekgu3hq9fkt.ap-northeast-2.rds.amazonaws.com/?????? ???hearhere-db
+    username: admin
+    password: tnsdnjs5913!
 
 
-jwt:
-header: ${JWT_HEADER}
-secret: ${JWT_SECRET}
-validTime: ${JWT_VALID_TIME}
+app:
+  localStorePath: ${LOCAL_STORE_PATH}
+  nftStorageToken: ${NFT_STORAGE_TOKEN}
+  nftAuthorizationKey: ${NFT_AUTHORIZATION_KEY}
+
+  auth:
+    accessTokenSecret: ${ACCESS_TOKEN_SECRET}
+    refreshTokenSecret: ${REFRESH_TOKEN_SECRET}
+    accessTokenExpiry: 86400000
+    refreshTokenExpiry: 604800000
+    refreshTokenNearExpiryCriterion: 259200000 //갱신 여부 기준 시간, 밀리초 단위임(3일)
 
 #jpa:
 #database: mysql
@@ -19,5 +26,7 @@ validTime: ${JWT_VALID_TIME}
 #ddl-auto: update
 #show_sql: true
 #format_sql: true
+
+
 
 
