@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.security.oauth2.client.web.AuthorizationRequestRepository;
 import org.springframework.security.oauth2.core.endpoint.OAuth2AuthorizationRequest;
 import org.springframework.stereotype.Component;
+import ssuSoftware.user.oauth.util.CookieUtils;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -43,8 +44,12 @@ public class CookieOAuth2AuthorizationRequestRepository
     }
 
     @Override
-    public OAuth2AuthorizationRequest removeAuthorizationRequest(HttpServletRequest request) {
-        return this.loadAuthorizationRequest(request);
+    public OAuth2AuthorizationRequest removeAuthorizationRequest(HttpServletRequest request, HttpServletResponse response) {
+        OAuth2AuthorizationRequest authorizationRequest = this.loadAuthorizationRequest(request); // 현재 저장되어 있는 OAuth2AuthorizationRequest 객체를 로드
+        if (authorizationRequest != null) { // 저장된 객체가 있으면 삭제
+            cookieUtils.deleteCookie(request, response, AUTHORIZATION_REQUEST_COOKIE_NAME); // 쿠키 삭제
+        }
+        return authorizationRequest;
     }
 
     public Optional<Cookie> getRedirectUriFromCookies(HttpServletRequest request) {
