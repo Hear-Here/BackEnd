@@ -45,11 +45,7 @@ public class CookieOAuth2AuthorizationRequestRepository
 
     @Override
     public OAuth2AuthorizationRequest removeAuthorizationRequest(HttpServletRequest request, HttpServletResponse response) {
-        OAuth2AuthorizationRequest authorizationRequest = this.loadAuthorizationRequest(request); // 현재 저장되어 있는 OAuth2AuthorizationRequest 객체를 로드
-        if (authorizationRequest != null) { // 저장된 객체가 있으면 삭제
-            cookieUtils.deleteCookie(request, response, AUTHORIZATION_REQUEST_COOKIE_NAME); // 쿠키 삭제
-        }
-        return authorizationRequest;
+        return this.loadAuthorizationRequest(request);
     }
 
     public Optional<Cookie> getRedirectUriFromCookies(HttpServletRequest request) {
