@@ -3,7 +3,7 @@ package ssuSoftware.user.entity;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import ssuSoftware.user.auth.oauth.OauthProvider;
+import lombok.ToString;
 import ssuSoftware.hearHear.core.base.Default;
 import ssuSoftware.user.entity.kind.Authority;
 import ssuSoftware.user.entity.kind.Gender;
@@ -16,6 +16,7 @@ import static org.springframework.util.StringUtils.hasText;
 
 @Getter
 @Entity
+@ToString
 @NoArgsConstructor
 public class User {
 
@@ -43,20 +44,21 @@ public class User {
     private Authority authority;
 
     @Enumerated(EnumType.STRING)
-    private OauthProvider provider;
+    private String provider;
 
     @Builder
-    public User( String email, OauthProvider provider, String nickname {
+    public User(String name, String email, String profilePhotoLink, Gender gender, Authority authority, String provider) {
+        this.name = name;
         this.email = email;
+        this.profilePhotoLink = profilePhotoLink;
+        this.gender = gender;
+        this.authority = authority;
         this.provider = provider;
-        this.nickname = nickname;
-        setDefaultValues();
     }
-    private void setDefaultValues() {
-        this.authority = Authority.USER;
-        this.gender = Gender.MALE;
-        this.profilePhotoLink = Default.PHOTO_LINK;
-    }
+
+
+
+
 
     public boolean isAnonymous(){ return false;}
 
@@ -76,6 +78,16 @@ public class User {
             this.userLink = userLink;
         }
     }
+    public User updateProfileImage(String profilePhotoLink) {
+        this.profilePhotoLink = profilePhotoLink;
+        return this;
+    }
+    public User updateName(String name) {
+        this.name = name;
+        return this;
+    }
+
+
     public void setAuthority(Authority authority) {
         this.authority = authority;
     }

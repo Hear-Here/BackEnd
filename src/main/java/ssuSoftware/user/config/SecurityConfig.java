@@ -14,6 +14,11 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.web.cors.CorsUtils;
 import ssuSoftware.user.auth.JwtAuthenticationEntryPoint;
 import ssuSoftware.user.auth.JwtAuthenticationFilter;
+import ssuSoftware.user.auth.JwtTokenProvider;
+import ssuSoftware.user.oauth.CookieOAuth2AuthorizationRequestRepository;
+import ssuSoftware.user.oauth.Handler.OAuth2FailureHandler;
+import ssuSoftware.user.oauth.Handler.OAuth2SuccessHandler;
+import ssuSoftware.user.oauth.ThirdPartyOAuth2UserService;
 
 import static org.springframework.http.HttpMethod.GET;
 
@@ -25,7 +30,7 @@ public class SecurityConfig {
     private final ThirdPartyOAuth2UserService thirdPartyOAuth2UserService;
     private final OAuth2SuccessHandler successHandler;
     private final OAuth2FailureHandler failureHandler;
-    private final JwtService jwtService;
+    private final JwtTokenProvider jwtTokenProvider;
     private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
     private final AccessDeniedHandler accessDeniedHandler;
     private final CookieOAuth2AuthorizationRequestRepository oAuth2AuthorizationRequestRepository;
@@ -50,8 +55,8 @@ public class SecurityConfig {
                 .mvcMatchers(GET, "/drawing/member/{memberId}").permitAll()
                 .mvcMatchers("/drawing/heart/**").permitAll()
                 .mvcMatchers("/drawing/random/**").permitAll()
-                .mvcMatchers(GET,"/heart/{drawingId}", "/scrap/{drawingId}").permitAll()
-                .mvcMatchers(GET,"/member/{memberId}").permitAll()
+                .mvcMatchers(GET, "/heart/{drawingId}", "/scrap/{drawingId}").permitAll()
+                .mvcMatchers(GET, "/member/{memberId}").permitAll()
                 .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
                 .anyRequest().authenticated()
                 .and()
@@ -71,6 +76,7 @@ public class SecurityConfig {
                 .successHandler(successHandler)
                 .failureHandler(failureHandler);
 
-        http.addFilterBefore(new JwtAuthenticationFilter(jwtService), UsernamePasswordAuthenticationFilter.class);
+        http.addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
+}

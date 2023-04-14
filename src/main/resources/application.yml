@@ -6,17 +6,6 @@ spring:
     password: tnsdnjs5913!
 
 
-app:
-  localStorePath: ${LOCAL_STORE_PATH}
-  nftStorageToken: ${NFT_STORAGE_TOKEN}
-  nftAuthorizationKey: ${NFT_AUTHORIZATION_KEY}
-
-  auth:
-    accessTokenSecret: ${ACCESS_TOKEN_SECRET}
-    refreshTokenSecret: ${REFRESH_TOKEN_SECRET}
-    accessTokenExpiry: 86400000
-    refreshTokenExpiry: 604800000
-    refreshTokenNearExpiryCriterion: 259200000 //갱신 여부 기준 시간, 밀리초 단위임(3일)
 
 #jpa:
 #database: mysql
