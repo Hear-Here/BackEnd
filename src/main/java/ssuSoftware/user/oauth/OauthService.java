@@ -1,7 +1,11 @@
 package ssuSoftware.user.oauth;
 
+import io.jsonwebtoken.Claims;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -14,6 +18,8 @@ import ssuSoftware.user.oauth.dto.KakaoUserInfo;
 import ssuSoftware.user.oauth.dto.UserToken;
 import ssuSoftware.hearHear.repository.UserRepository;
 
+import java.util.Collection;
+import java.util.Set;
 
 
 @Service
@@ -72,6 +78,6 @@ public class OauthService {
 
        return kakaoUserInfo;
     }
-
+gi
 
 }

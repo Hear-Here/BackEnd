@@ -30,38 +30,3 @@ public class KakaoUserInfo {
     }
 
 }
-//    private Map<String, Object> attributes;
-//
-//    public KakaoUserInfo(Map<String, Object> attributes) {
-//        this.attributes = attributes;
-//    }
-//
-//
-//    public String getEmail() {
-//       return (String) getKakaoAccount().get("email");
-//    }
-//
-//    public Long getId() {
-//        return Long.parseLong(String.valueOf(attributes.get("id")));
-//    }
-//
-//    public String getName() {
-//        return (String) getKakaoAccount().get("name");
-//    }
-//
-//
-//    public String getNickName() {
-//        return (String) getProfile().get("nickname");
-//    }
-//    // email, nickname,  profile_image는 해당 정보는 kakao_account라는 JSON객체로 주어진다.
-//    public Map<String, Object> getKakaoAccount(){
-//        return(Map<String, Object>) attributes.get("kakao_account");
-//    }
-//
-//    public Map<String, Object> getProfile(){
-//        return (Map<String, Object>) getKakaoAccount().get("profile");
-//    }
-//
-//
-//
-//}
