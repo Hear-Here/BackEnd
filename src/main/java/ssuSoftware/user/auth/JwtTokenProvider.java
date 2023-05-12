@@ -10,6 +10,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Component;
+import ssuSoftware.hearHear.entity.kind.Role;
 
 import java.nio.charset.StandardCharsets;
 import java.security.Key;
@@ -78,6 +79,10 @@ public class JwtTokenProvider {
         }
 
 
-
+    public Authentication getAuthentication(String accessToken) {
+        String id = getPayload(accessToken);
+        Collection<? extends GrantedAuthority> authorities = Set.of(new SimpleGrantedAuthority(Role.USER.toString()));
+        return new UsernamePasswordAuthenticationToken(id, "", authorities);
     }
+}
 
