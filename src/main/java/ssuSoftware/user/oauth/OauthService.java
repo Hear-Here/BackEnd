@@ -43,7 +43,7 @@ public class OauthService {
         if(userRepository.existsByProviderId(kakaoUserInfo.getId())){
             User user = userRepository.findByProviderId(kakaoUserInfo.getId()).orElseThrow();
 
-            String accessToken = jwtTokenProvider.generateAccessToken(String.valueOf(user.getId()));
+            String accessToken = jwtTokenProvider.generateAccessToken(String.valueOf(user.getProviderId()));
             String refreshToken = jwtTokenProvider.generateRefreshToken();
             return new LoginResponse(user, accessToken, refreshToken, AuthState.Join);
         }
@@ -78,6 +78,6 @@ public class OauthService {
 
        return kakaoUserInfo;
     }
-gi
+
 
 }

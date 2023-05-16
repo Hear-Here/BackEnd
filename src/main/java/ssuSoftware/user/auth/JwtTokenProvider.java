@@ -2,7 +2,7 @@ package ssuSoftware.user.auth;
 
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
-import lombok.RequiredArgsConstructor;
+import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -12,22 +12,33 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Component;
 import ssuSoftware.hearHear.entity.kind.Role;
 
+import javax.annotation.PostConstruct;
 import java.nio.charset.StandardCharsets;
 import java.security.Key;
 import java.util.*;
 
 @Slf4j
 @Component
-@RequiredArgsConstructor
+@NoArgsConstructor
 public class JwtTokenProvider {
 
 
     @Value("${app.auth.accessTokenExpiry}")
-    private long accessTokenDuration;
+    private  long accessTokenDuration;
     @Value("${app.auth.refreshTokenExpiry}")
-    private long refreshTokenDuration;
+    private  long refreshTokenDuration;
     @Value("${app.auth.accessTokenSecret}")
-    private String secretKey;
+    private  String secretKey;
+
+    private Key key;
+
+
+    @PostConstruct
+    public void createKey() {
+        byte[] secretBytes = Base64.getDecoder()
+                .decode(secretKey.getBytes());
+         key = Keys.hmacShaKeyFor(secretBytes);
+    }
 
     public String generateAccessToken(String payload){
         return createToken(payload, accessTokenDuration);
@@ -49,14 +60,15 @@ public class JwtTokenProvider {
                     .setClaims(claims)
                     .setIssuedAt(now)
                     .setExpiration(validity)
-                    .signWith(SignatureAlgorithm.HS512,secretKey)
+                    .signWith(key,SignatureAlgorithm.HS512)
                     .compact();
         }
 
         public String getPayload(String token){
             try{
-                return Jwts.parser()
-                        .setSigningKey(secretKey)
+                return Jwts.parserBuilder()
+                        .setSigningKey(key)
+                        .build()
                         .parseClaimsJws(token)
                         .getBody()
                         .getSubject();
@@ -69,8 +81,9 @@ public class JwtTokenProvider {
 
         public boolean validateToken(String token){
             try{
-                Jws<Claims> claimsJws = Jwts.parser()
-                        .setSigningKey(secretKey)
+                Jws<Claims> claimsJws = Jwts.parserBuilder()
+                        .setSigningKey(key)
+                        .build()
                         .parseClaimsJws(token);
                 return !claimsJws.getBody().getExpiration().before(new Date());
             }catch (JwtException | IllegalArgumentException exception){

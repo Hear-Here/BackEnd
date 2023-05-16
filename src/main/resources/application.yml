@@ -24,6 +24,10 @@ app:
 server:
   forward-headers-strategy: FRAMEWORK
 
+springdoc:
+  packages-to-scan: src.main.java.ssuSoftware
+
+
 
 
 
