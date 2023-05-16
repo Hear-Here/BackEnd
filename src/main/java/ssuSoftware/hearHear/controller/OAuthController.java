@@ -26,13 +26,6 @@ public class OAuthController {
         return ResponseEntity.ok().body(loginResponse);
     }
 
-    //사용자 id와 redirect 전달 받아 로그아웃 시키기
-//    @Operation(summary = "OAuth 로그아웃", description = "providerId와 리다이렉트주소 넘겨줌")
-//    @GetMapping("/logout")
-//    public void logout(String accessToken){
-//
-//    }
-//
 //    @Operation(summary = "닉네임 수정")
 //    @PostMapping("/user/nickname")
 }
