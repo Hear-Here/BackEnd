@@ -16,10 +16,9 @@ public class User {
     @Column(name = "user_id")
     private Long id;
     private Long providerId;
-    private String name;
-    private String nickName;
     private String kakaoAccessToken;
     private String kakaoRefreshToken;
+    private String email;
 
     @Enumerated(EnumType.STRING)
     private Role role;
@@ -30,9 +29,7 @@ public class User {
     public void setKakaoUpdate(){
         this.kakaoUpdate = LocalDateTime.now();
     }
-    public void updateNickName(String nickName){
-        this.nickName = nickName;
-    }
+
     public void setKakaoToken(String kakaoAccessToken, String kakaoRefreshToken){
         this.kakaoAccessToken = kakaoAccessToken;
         this.kakaoRefreshToken = kakaoRefreshToken;
