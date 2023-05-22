@@ -1,11 +1,7 @@
 package ssuSoftware.user.oauth;
 
-import io.jsonwebtoken.Claims;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -17,9 +13,6 @@ import ssuSoftware.hearHear.entity.kind.Role;
 import ssuSoftware.user.oauth.dto.KakaoUserInfo;
 import ssuSoftware.user.oauth.dto.UserToken;
 import ssuSoftware.hearHear.repository.UserRepository;
-
-import java.util.Collection;
-import java.util.Set;
 
 
 @Service
@@ -51,11 +44,7 @@ public class OauthService {
         else {
             User user = User.builder()
                     .providerId(kakaoUserInfo.getId())
-                    .name(kakaoUserInfo.getKakao_account().getName())
                     .role(Role.USER)
-                    .nickName(kakaoUserInfo.getKakao_account().getProfile().getNickname())
-                    .kakaoAccessToken(userToken.getAccessToken())
-                    .kakaoRefreshToken(userToken.getRefreshToken())
                     .build();
 
             String accessToken = jwtTokenProvider.generateAccessToken(String.valueOf(user.getId()));
@@ -68,7 +57,9 @@ public class OauthService {
 
 
     private KakaoUserInfo getUserAttributesByToken(UserToken userToken){
-        KakaoUserInfo kakaoUserInfo = WebClient.create()
+
+
+                KakaoUserInfo kakaoUserInfo = WebClient.create()
                 .get()
                 .uri("https://kapi.kakao.com/v2/user/me")
                 .headers(httpHeaders -> httpHeaders.setBearerAuth(userToken.getAccessToken()))

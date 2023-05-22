@@ -10,8 +10,6 @@ import ssuSoftware.hearHear.entity.kind.Role;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class LoginResponse {
     private Long id;
-    private String name;
-    private String nickName;
     private Role role;
     private String accessToken;
     private String refreshToken;
@@ -19,8 +17,6 @@ public class LoginResponse {
 
     public LoginResponse(User user, String accessToken, String refreshToken,AuthState authState){
         this.id = user.getId();
-        this.name = user.getName();
-        this.nickName = user.getNickName();
         this.role = user.getRole();
         this.accessToken = accessToken;
         this.refreshToken = refreshToken;
