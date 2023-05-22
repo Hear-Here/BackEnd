@@ -1,31 +1,35 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:hearhere-db.cekgu3hq9fkt.ap-northeast-2.rds.amazonaws.com/?????? ???hearhere-db
+    url: jdbc:mysql://hearhere-db.cekgu3hq9fkt.ap-northeast-2.rds.amazonaws.com:3306/herehere
     username: admin
     password: tnsdnjs5913!
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+        show-sql: true
 
 
 app:
-  localStorePath: ${LOCAL_STORE_PATH}
-  nftStorageToken: ${NFT_STORAGE_TOKEN}
-  nftAuthorizationKey: ${NFT_AUTHORIZATION_KEY}
-
   auth:
-    accessTokenSecret: ${ACCESS_TOKEN_SECRET}
-    refreshTokenSecret: ${REFRESH_TOKEN_SECRET}
+    accessTokenSecret: 9F02B697340B0859C4844EDFB88BD47F9E85B1F8D4007772F64251A9CE2C77BC
+    refreshTokenSecret: A1B5BE029C7712AF897828716920E18FF0779BFD0B09E5BAADC510975EF95AB7
     accessTokenExpiry: 86400000
     refreshTokenExpiry: 604800000
-    refreshTokenNearExpiryCriterion: 259200000 //갱신 여부 기준 시간, 밀리초 단위임(3일)
+    refreshTokenNearExpiryCriterion: 259200000
 
-#jpa:
-#database: mysql
-#database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
-#generate-ddl: true
-#hibernate:
-#ddl-auto: update
-#show_sql: true
-#format_sql: true
+server:
+  forward-headers-strategy: FRAMEWORK
+
+springdoc:
+  packages-to-scan: src.main.java.ssuSoftware
+
+
+
+
 
 
 

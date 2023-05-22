@@ -6,16 +6,15 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Post extends BaseTimeEntity{
+public class Bookmark {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "post_id")
+    @Column(name = "bookmark_id")
     private Long id;
 
     @ManyToOne(fetch= FetchType.LAZY)
@@ -23,21 +22,12 @@ public class Post extends BaseTimeEntity{
     private User user;
 
     @ManyToOne(fetch= FetchType.LAZY)
-    @JoinColumn(name = "music_id")
-    private Music music;
-
-    private String content;
-
-    private Double latitude;
-
-    private Double longitude;
+    @JoinColumn(name = "post_id")
+    private Post post;
 
     @Builder
-    public Post(User user, Music music, String content, Double latitude, Double longitude) {
+    public Bookmark(User user, Post post) {
         this.user = user;
-        this.music = music;
-        this.content = content;
-        this.latitude = latitude;
-        this.longitude = longitude;
+        this.post = post;
     }
 }
