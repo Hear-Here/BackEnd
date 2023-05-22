@@ -37,6 +37,4 @@ public class User {
         this.kakaoAccessToken = kakaoAccessToken;
         this.kakaoRefreshToken = kakaoRefreshToken;
     }
-
-
 }
