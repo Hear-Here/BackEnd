@@ -13,25 +13,16 @@ import java.time.LocalDateTime;
 @Getter
 public class User {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
     private Long id;
+
+    @Column(unique = true)
     private Long providerId;
-    private String kakaoAccessToken;
-    private String kakaoRefreshToken;
+
+    @Column(unique = true)
     private String email;
 
     @Enumerated(EnumType.STRING)
     private Role role;
-
-    @Column(name = "kakao_update")
-    private LocalDateTime kakaoUpdate;
-
-    public void setKakaoUpdate(){
-        this.kakaoUpdate = LocalDateTime.now();
-    }
-
-    public void setKakaoToken(String kakaoAccessToken, String kakaoRefreshToken){
-        this.kakaoAccessToken = kakaoAccessToken;
-        this.kakaoRefreshToken = kakaoRefreshToken;
-    }
 }
