@@ -15,20 +15,8 @@ import java.util.Map;
 @NoArgsConstructor
 public class KakaoUserInfo {
 
-    private Long id;
-    private Kakao_account kakao_account;
-
-    public String getProvider(){return "kakao";}
-    @Getter
-    @Setter
-    @NoArgsConstructor
-    public class Kakao_account {
-
-
+        private Long id;
         private String email;
-
-    }
-
 
 
 }
