@@ -11,6 +11,7 @@ import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsUtils;
 import ssuSoftware.user.auth.JwtAuthenticationEntryPoint;
+import ssuSoftware.user.auth.JwtAuthenticationFilter;
 import ssuSoftware.user.auth.JwtTokenProvider;
 
 
@@ -45,9 +46,7 @@ public class SecurityConfig {
                 .exceptionHandling() //스프링 시큐리티구성에서 예외처리 설정하는 부분
                 .authenticationEntryPoint(jwtAuthenticationEntryPoint) // 인증되지 않은 사용자가 접근할 때, jwtAuthenticationEntryPoint에서 정의한 로직이 실행되어 사용자를 인증하도록 유도하거나 에러 메시지를 반환할 수 있습니다.
                 .accessDeniedHandler(accessDeniedHandler);//인가되지 않은 사용자 접근 거부(403에러)
-
-
-//        http.addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class);
+                http.addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
 }

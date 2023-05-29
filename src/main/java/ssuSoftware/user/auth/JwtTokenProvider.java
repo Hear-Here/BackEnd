@@ -88,6 +88,7 @@ public class JwtTokenProvider {
                         .setSigningKey(key)
                         .build()
                         .parseClaimsJws(token);
+                Date now = new Date();
                 return !claimsJws.getBody().getExpiration().before(new Date());
             }catch (JwtException | IllegalArgumentException exception){
                 return false;
@@ -96,9 +97,9 @@ public class JwtTokenProvider {
 
 
     public Authentication getAuthentication(String accessToken) {
-        String id = getPayload(accessToken);
+        String email = getPayload(accessToken);
         Collection<? extends GrantedAuthority> authorities = Set.of(new SimpleGrantedAuthority(Role.USER.toString()));
-        return new UsernamePasswordAuthenticationToken(id, "", authorities);
+        return new UsernamePasswordAuthenticationToken(email, "", authorities);
     }
 
 
