@@ -11,6 +11,7 @@ import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsUtils;
 import ssuSoftware.user.auth.JwtAuthenticationEntryPoint;
+import ssuSoftware.user.auth.JwtAuthenticationFilter;
 import ssuSoftware.user.auth.JwtTokenProvider;
 
 
@@ -47,7 +48,7 @@ public class SecurityConfig {
                 .accessDeniedHandler(accessDeniedHandler);//인가되지 않은 사용자 접근 거부(403에러)
 
 
-//        http.addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class);
+        http.addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
 }

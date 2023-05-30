@@ -96,9 +96,9 @@ public class JwtTokenProvider {
 
 
     public Authentication getAuthentication(String accessToken) {
-        String id = getPayload(accessToken);
+        String email = getPayload(accessToken);
         Collection<? extends GrantedAuthority> authorities = Set.of(new SimpleGrantedAuthority(Role.USER.toString()));
-        return new UsernamePasswordAuthenticationToken(id, "", authorities);
+        return new UsernamePasswordAuthenticationToken(email, "", authorities);
     }
 
 

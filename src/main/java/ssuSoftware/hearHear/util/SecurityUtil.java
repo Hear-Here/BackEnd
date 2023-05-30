@@ -15,10 +15,11 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class SecurityUtil {
 
-    private final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
     private final UserRepository userRepository;
     public User getUser(){
 
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String userEmail = (String)authentication.getPrincipal();
         User user = userRepository.findByEmail(userEmail).orElseThrow(() -> new IllegalStateException("User not found"));
         return user;

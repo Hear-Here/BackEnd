@@ -34,7 +34,7 @@ public class OauthService {
 
             String accessToken = jwtTokenProvider.generateAccessToken(String.valueOf(user.getEmail()));
             String refreshToken = jwtTokenProvider.generateRefreshToken();
-            return new LoginResponse( accessToken, refreshToken, AuthState.Join);
+            return new LoginResponse( accessToken, refreshToken, AuthState.Login);
         }
 
         else {
@@ -44,10 +44,10 @@ public class OauthService {
                     .role(Role.USER)
                     .build();
 
-            String accessToken = jwtTokenProvider.generateAccessToken(String.valueOf(user.getId()));
+            String accessToken = jwtTokenProvider.generateAccessToken(String.valueOf(user.getEmail()));
             String refreshToken = jwtTokenProvider.generateRefreshToken();
 
-            return new LoginResponse(accessToken, refreshToken, AuthState.Login);
+            return new LoginResponse(accessToken, refreshToken, AuthState.Join);
         }
         }
 

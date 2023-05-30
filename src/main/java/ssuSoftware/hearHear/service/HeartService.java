@@ -15,6 +15,27 @@ import ssuSoftware.hearHear.util.SecurityUtil;
 @RequiredArgsConstructor
 public class HeartService {
 
+    private final PostRepository postRepository;
+    private final HeartRepository heartRepository;
+    private final SecurityUtil securityUtil;
 
+    public Heart saveHeart(Long postId) {
+        User user = securityUtil.getUser();
+        Post post = postRepository.findById(postId).orElseThrow(() -> new IllegalStateException("Post not found"));
+      if ( heartRepository.findByPostAndUser(post, user)==null){
+          Heart heart = new Heart(user, post);
+          heartRepository.save(heart);
+            return heart;
+      }
+      else{
+          Heart heart = heartRepository.findByPostAndUser(post, user);
+          heartRepository.save(heart);
+          return heart;
+      }
+
+//        Heart heart = heartRepository.findByPostAndUser(post, user);
+//        heartRepository.save(heart);
+//      return heart;
+    }
 
 }
