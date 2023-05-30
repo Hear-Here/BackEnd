@@ -35,9 +35,9 @@ public class OauthService {
             String accessToken = jwtTokenProvider.generateAccessToken(String.valueOf(user.getEmail()));
             String refreshToken = jwtTokenProvider.generateRefreshToken();
             return new LoginResponse( accessToken, refreshToken, AuthState.Login);
-        }
 
-        else {
+        } else {
+
             User user = User.builder()
                     .providerId(kakaoUserInfo.getId())
                     .email(kakaoUserInfo.getEmail())

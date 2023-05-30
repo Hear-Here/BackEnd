@@ -33,9 +33,7 @@ public class HeartService {
           return heart;
       }
 
-//        Heart heart = heartRepository.findByPostAndUser(post, user);
-//        heartRepository.save(heart);
-//      return heart;
+
     }
 
 }

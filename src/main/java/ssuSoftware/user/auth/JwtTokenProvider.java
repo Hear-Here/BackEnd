@@ -88,6 +88,7 @@ public class JwtTokenProvider {
                         .setSigningKey(key)
                         .build()
                         .parseClaimsJws(token);
+                Date now = new Date();
                 return !claimsJws.getBody().getExpiration().before(new Date());
             }catch (JwtException | IllegalArgumentException exception){
                 return false;
