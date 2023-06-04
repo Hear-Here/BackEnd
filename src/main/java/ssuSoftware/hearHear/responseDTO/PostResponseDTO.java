@@ -17,16 +17,18 @@ import javax.persistence.ManyToOne;
 public class PostResponseDTO {
     private Long postId;
     private String userEmail;
-    private Long musicId;
-    private String content;
+    private String musicTittle;
+    private String musicArtist;
+    private String musicCover;
     private Double latitude;
     private Double longitude;
 
     public PostResponseDTO(Post post){
         this.postId = post.getId();
         this.userEmail = post.getUser().getEmail();
-        this.musicId = post.getMusic().getId();
-        this.content = post.getContent();
+        this.musicTittle = post.getMusic().getTitle();
+        this.musicArtist = post.getMusic().getArtist();
+        this.musicCover = post.getMusic().getCorver();
         this.latitude = post.getLatitude();
         this.longitude = post.getLongitude();
     }
