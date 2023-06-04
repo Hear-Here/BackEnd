@@ -2,6 +2,8 @@ package ssuSoftware.hearHear.controller;
 
 import lombok.RequiredArgsConstructor;
 
+import org.hibernate.Hibernate;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ssuSoftware.hearHear.entity.Heart;
@@ -10,8 +12,11 @@ import ssuSoftware.hearHear.entity.User;
 import ssuSoftware.hearHear.repository.HeartRepository;
 import ssuSoftware.hearHear.repository.PostRepository;
 import ssuSoftware.hearHear.repository.UserRepository;
+import ssuSoftware.hearHear.responseDTO.PostResponseDTO;
+import ssuSoftware.hearHear.service.HeartService;
 import ssuSoftware.hearHear.util.SecurityUtil;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -24,20 +29,17 @@ public class HeartController {
     private final UserRepository userRepository;
     private final HeartRepository heartRepository;
     private final PostRepository postRepository;
+    private final HeartService heartService;
 
 
     @GetMapping("/post/{postId}/heart")
     public void saveHeart(@PathVariable Long postId){
 
-        User user = securityUtil.getUser();
-        Post post = postRepository.findById(postId).orElseThrow(() -> new IllegalStateException("Post not found"));
-
-        Heart heart = new Heart(user, post);
-        heartRepository.save(heart);
-
+        heartService.saveHeart(postId);
     }
 
     @DeleteMapping("/post/{postId}/heart")
+    @ResponseStatus(HttpStatus.OK)
     public void deleteHeart(@PathVariable Long postId){
 
         User user = securityUtil.getUser();
@@ -49,11 +51,16 @@ public class HeartController {
 
 
     @GetMapping("/post/heart/list")
-    public ResponseEntity<List<Post>> getHeartList(){
+    public ResponseEntity<List<PostResponseDTO>> getHeartList(){
 
         User user = securityUtil.getUser();
-        List<Post> postList = heartRepository.findAllByUser(user);
+        List<Heart> heartList = heartRepository.findAllByUser(user);
 
+        List<PostResponseDTO> postList =   new ArrayList<>();
+        for(Heart heart:heartList){
+            PostResponseDTO postResponseDTO = new PostResponseDTO(heart.getPost());
+        postList.add(postResponseDTO);
+        }
         return ResponseEntity.ok().body(postList);
     }
 }

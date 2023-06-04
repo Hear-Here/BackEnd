@@ -16,5 +16,5 @@ public interface HeartRepository extends JpaRepository<Heart,Long> {
     Heart findByPostAndUser(Post post, User user);
 
 
-    List<Post> findAllByUser(User user);
+    List<Heart> findAllByUser(User user);
 }
