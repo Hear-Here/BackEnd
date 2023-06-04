@@ -30,7 +30,7 @@ public class HeartController {
     public void saveHeart(@PathVariable Long postId){
 
         User user = securityUtil.getUser();
-        Post post = postRepository.findById(postId).orElseThrow(() -> new IllegalStateException("Post not found"));;
+        Post post = postRepository.findById(postId).orElseThrow(() -> new IllegalStateException("Post not found"));
 
         Heart heart = new Heart(user, post);
         heartRepository.save(heart);

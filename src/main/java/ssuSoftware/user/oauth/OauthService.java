@@ -42,6 +42,8 @@ public class OauthService {
                     .role(Role.USER)
                     .build();
 
+            userRepository.save(user);
+
             String accessToken = jwtTokenProvider.generateAccessToken(String.valueOf(user.getId()));
             String refreshToken = jwtTokenProvider.generateRefreshToken();
 
