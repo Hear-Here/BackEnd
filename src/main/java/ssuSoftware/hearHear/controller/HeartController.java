@@ -34,6 +34,7 @@ public class HeartController {
 
     @GetMapping("/post/{postId}/heart")
     public void saveHeart(@PathVariable Long postId){
+
         heartService.saveHeart(postId);
     }
 

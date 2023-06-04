@@ -18,19 +18,22 @@ public class Music {
     @Column(name = "music_id")
     private Long id;
 
+    private Long songId;
+
     private String title;
 
     private String artist;
 
-    private String corver;
+    private String cover;
 
     @OneToMany(mappedBy = "music", cascade = CascadeType.ALL)
     private List<Post> postList = new ArrayList<>();
 
     @Builder
-    public Music(String title, String artist, String corver) {
+    public Music(String title, String artist, String cover, Long songId) {
         this.title = title;
         this.artist = artist;
-        this.corver = corver;
+        this.cover = cover;
+        this.songId = songId;
     }
 }
