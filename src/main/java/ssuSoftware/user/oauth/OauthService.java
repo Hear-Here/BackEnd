@@ -35,16 +35,16 @@ public class OauthService {
             String accessToken = jwtTokenProvider.generateAccessToken(String.valueOf(user.getEmail()));
             String refreshToken = jwtTokenProvider.generateRefreshToken();
             return new LoginResponse( accessToken, refreshToken, AuthState.Login);
+
         } else {
+
             User user = User.builder()
                     .providerId(kakaoUserInfo.getId())
                     .email(kakaoUserInfo.getEmail())
                     .role(Role.USER)
                     .build();
 
-            userRepository.save(user);
-
-            String accessToken = jwtTokenProvider.generateAccessToken(String.valueOf(user.getId()));
+            String accessToken = jwtTokenProvider.generateAccessToken(String.valueOf(user.getEmail()));
             String refreshToken = jwtTokenProvider.generateRefreshToken();
 
             return new LoginResponse(accessToken, refreshToken, AuthState.Join);
