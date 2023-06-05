@@ -37,6 +37,9 @@ public class OauthService {
             return new LoginResponse( accessToken, refreshToken, AuthState.Login);
 
         } else {
+            User newUser = User.builder().providerId(kakaoUserInfo.getId()).email(kakaoUserInfo.getEmail())
+                            .nickname("anonymous").role(Role.USER).build();
+            userRepository.save(newUser);
 
             User user = User.builder()
                     .providerId(kakaoUserInfo.getId())

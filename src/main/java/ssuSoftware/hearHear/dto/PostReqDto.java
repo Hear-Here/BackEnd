@@ -27,4 +27,10 @@ public class PostReqDto {
         private Double longitude;
         private Double latitude;
     }
+    @NoArgsConstructor
+    @Getter
+    public static class UploadPostContent{
+        private String content;
+    }
+
 }

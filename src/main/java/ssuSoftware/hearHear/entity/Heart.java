@@ -18,7 +18,7 @@ public class Heart{
     @JoinColumn(name = "user_id")
     private User user;
 
-    @ManyToOne(fetch= FetchType.EAGER)
+    @ManyToOne(fetch= FetchType.LAZY)
     @JoinColumn(name = "post_id")
     private Post post;
 

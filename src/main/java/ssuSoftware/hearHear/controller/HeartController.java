@@ -6,6 +6,7 @@ import org.hibernate.Hibernate;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import ssuSoftware.hearHear.dto.PostResDto;
 import ssuSoftware.hearHear.entity.Heart;
 import ssuSoftware.hearHear.entity.Post;
 import ssuSoftware.hearHear.entity.User;
@@ -18,6 +19,8 @@ import ssuSoftware.hearHear.util.SecurityUtil;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static ssuSoftware.hearHear.dto.PostResDto.*;
 
 
 @RestController
@@ -32,7 +35,7 @@ public class HeartController {
     private final HeartService heartService;
 
 
-    @GetMapping("/post/{postId}/heart")
+    @PostMapping("/post/{postId}/heart")
     public void saveHeart(@PathVariable Long postId){
 
         heartService.saveHeart(postId);
@@ -51,16 +54,10 @@ public class HeartController {
 
 
     @GetMapping("/post/heart/list")
-    public ResponseEntity<List<PostResponseDTO>> getHeartList(){
-
+    public ResponseEntity<List<PostInfo>> getHeartList(@RequestParam Double latitude,
+                                                       @RequestParam Double longitude){
         User user = securityUtil.getUser();
-        List<Heart> heartList = heartRepository.findAllByUser(user);
-
-        List<PostResponseDTO> postList =   new ArrayList<>();
-        for(Heart heart:heartList){
-            PostResponseDTO postResponseDTO = new PostResponseDTO(heart.getPost());
-        postList.add(postResponseDTO);
-        }
+        List<PostInfo> postList = heartService.getHeatList(user, latitude, longitude);
         return ResponseEntity.ok().body(postList);
     }
 }
