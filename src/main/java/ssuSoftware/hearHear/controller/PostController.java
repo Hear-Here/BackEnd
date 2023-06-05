@@ -3,15 +3,19 @@ package ssuSoftware.hearHear.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+
 import org.springframework.web.bind.annotation.*;
+
 import ssuSoftware.hearHear.entity.User;
 import ssuSoftware.hearHear.service.PostService;
 import ssuSoftware.hearHear.util.SecurityUtil;
+
 
 import java.util.List;
 
 import static ssuSoftware.hearHear.dto.PostReqDto.*;
 import static ssuSoftware.hearHear.dto.PostResDto.*;
+
 
 @RequiredArgsConstructor
 @RestController
@@ -26,6 +30,7 @@ public class PostController {
         postService.uploadPost(uploadPost, user);
         return ResponseEntity.ok("Success");
     }
+
 
     @GetMapping("/{postId}")
     public ResponseEntity<PostInfo> findPost(@PathVariable Long postId, @RequestParam Double latitude,
@@ -57,4 +62,5 @@ public class PostController {
         postService.updatePostContent(user, postId, updateContent.getContent());
         return ResponseEntity.ok().body("Success");
     }
+
 }

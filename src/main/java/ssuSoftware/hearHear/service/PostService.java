@@ -1,6 +1,7 @@
 package ssuSoftware.hearHear.service;
 
 import lombok.RequiredArgsConstructor;
+
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,17 +22,20 @@ import java.util.List;
 import static ssuSoftware.hearHear.dto.PostReqDto.*;
 import static ssuSoftware.hearHear.dto.PostResDto.*;
 
+
 @RequiredArgsConstructor
 @Service
 @Transactional
 public class PostService {
     private final PostRepository postRepository;
     private final MusicRepository musicRepository;
+
     private final HeartRepository heartRepository;
     private final SecurityUtil securityUtil;
 
 
     private static final int EARTH_RADIUS = 6371; //km
+
 
     public Long uploadPost(UploadPost uploadPost, User user) {
         //Music 테이블에 없으면 추가
@@ -50,7 +54,6 @@ public class PostService {
                 .build();
         return postRepository.save(post).getId();
     }
-
 
     public PostInfo findPostById(User user, Long postId, Double latitude,Double longitude) {
         Post post = postRepository.findById(postId).orElseThrow(()-> new IllegalStateException("Could not find post"));
@@ -102,6 +105,7 @@ public class PostService {
             throw new IllegalAccessException("not post owner");
         }
     }
+
 
 
 }
