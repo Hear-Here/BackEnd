@@ -10,11 +10,10 @@ import java.util.List;
 
 public interface HeartRepository extends JpaRepository<Heart,Long> {
 
-
-
-
     Heart findByPostAndUser(Post post, User user);
 
 
     List<Heart> findAllByUser(User user);
+
+    boolean existsByPostAndUser(Post post, User user);
 }

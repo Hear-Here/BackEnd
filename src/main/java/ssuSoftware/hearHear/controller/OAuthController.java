@@ -6,6 +6,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import ssuSoftware.hearHear.entity.User;
+import ssuSoftware.hearHear.repository.UserRepository;
+import ssuSoftware.hearHear.util.SecurityUtil;
 import ssuSoftware.user.auth.dto.LoginResponse;
 import ssuSoftware.user.oauth.OauthService;
 import ssuSoftware.user.oauth.dto.KakaoUserInfo;
@@ -17,6 +20,8 @@ import ssuSoftware.user.oauth.dto.KakaoUserInfo;
 public class OAuthController {
 
     private final OauthService oauthService;
+    private final SecurityUtil securityUtil;
+    private final UserRepository userRepository;
 
 
     @Operation(summary = "OAuth로그인 api" , description = "회원정보와 /accessToken와 /회원가입인지 로그인인지 상태 /전달")
@@ -24,6 +29,14 @@ public class OAuthController {
     public ResponseEntity<LoginResponse> login(@PathVariable String provider, @RequestBody KakaoUserInfo kakaoUserInfo) {
         LoginResponse loginResponse = oauthService.loginWithToken(provider, kakaoUserInfo);
         return ResponseEntity.ok().body(loginResponse);
+    }
+
+    @PatchMapping("/user/nickname/{updateNickname}")
+    public ResponseEntity<String> login(@PathVariable String updateNickname) {
+        User user = securityUtil.getUser();
+        user.updateNickname(updateNickname);
+        userRepository.save(user);
+        return ResponseEntity.ok().body("Success");
     }
 
 

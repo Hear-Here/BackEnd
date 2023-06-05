@@ -26,6 +26,9 @@ public class User {
     @Enumerated(EnumType.STRING)
     private Role role;
 
+    private String nickname;
 
-
+    public void updateNickname(String updateNickname) {
+        this.nickname = updateNickname;
+    }
 }

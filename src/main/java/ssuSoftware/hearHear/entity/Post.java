@@ -10,6 +10,8 @@ import ssuSoftware.hearHear.entity.enums.WeatherType;
 import ssuSoftware.hearHear.entity.enums.WithType;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -49,6 +51,9 @@ public class Post extends BaseTimeEntity{
 
     private Double longitude;
 
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
+    private List<Heart> heartList = new ArrayList<>();
+
     @Builder
     public Post(User user, Music music, GenreType genreType, WithType withType, WeatherType weatherType,
                 EmotionType emotionType, Integer temp, String content, Double latitude, Double longitude) {
@@ -62,5 +67,9 @@ public class Post extends BaseTimeEntity{
         this.content = content;
         this.latitude = latitude;
         this.longitude = longitude;
+    }
+
+    public void updateContent(String updateContent) {
+        this.content = updateContent;
     }
 }
