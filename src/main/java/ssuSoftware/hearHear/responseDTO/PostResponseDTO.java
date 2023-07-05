@@ -28,7 +28,7 @@ public class PostResponseDTO {
         this.userEmail = post.getUser().getEmail();
         this.musicTittle = post.getMusic().getTitle();
         this.musicArtist = post.getMusic().getArtist();
-        this.musicCover = post.getMusic().getCorver();
+        this.musicCover = post.getMusic().getCover();
         this.latitude = post.getLatitude();
         this.longitude = post.getLongitude();
     }

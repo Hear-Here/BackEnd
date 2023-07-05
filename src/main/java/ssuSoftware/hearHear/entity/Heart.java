@@ -28,5 +28,10 @@ public class Heart{
         this.post = post;
     }
 
+    public Heart of(User user, Post post){
+        this.user =user;
+        this.post = post;
+        return new Heart;
+    }
 
 }
